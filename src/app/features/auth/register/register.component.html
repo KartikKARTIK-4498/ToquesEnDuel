@@ -1,0 +1,72 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="max-w-md w-full p-6 bg-base-200 rounded-lg shadow-lg">
+    <h2 class="text-3xl font-bold text-center mb-6">Create Account</h2>
+    
+    @if (error) {
+    <div class="alert alert-error mb-4">
+      <span>{{ error }}</span>
+    </div>
+    }
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Email</span>
+        </label>
+        <input type="email" formControlName="email" class="input input-bordered w-full" 
+               [class.input-error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"/>
+        @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+        <label class="label">
+          <span class="label-text-alt text-error">Please enter a valid email address</span>
+        </label>
+        }
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Password</span>
+        </label>
+        <input type="password" formControlName="password" class="input input-bordered w-full"
+               [class.input-error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"/>
+        @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+        <label class="label">
+          <span class="label-text-alt text-error">Password must be at least 6 characters</span>
+        </label>
+        }
+      </div>
+
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text">Confirm Password</span>
+        </label>
+        <input type="password" formControlName="confirmPassword" class="input input-bordered w-full"
+               [class.input-error]="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched"/>
+        @if (registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched) {
+        <label class="label">
+          <span class="label-text-alt text-error">Passwords do not match</span>
+        </label>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary w-full" [disabled]="registerForm.invalid || loading">
+        @if (loading) {
+        <span class="loading loading-spinner"></span>
+        }
+        Register
+      </button>
+    </form>
+
+    <div class="divider">OR</div>
+
+    <button class="btn btn-outline w-full" (click)="registerWithGoogle()" [disabled]="loading">
+      @if (loading) {
+      <span class="loading loading-spinner"></span>
+      }
+      Continue with Google
+    </button>
+
+    <p class="text-center mt-4">
+      Already have an account? <a routerLink="/auth/login" class="link link-primary">Login</a>
+    </p>
+  </div>
+</div>

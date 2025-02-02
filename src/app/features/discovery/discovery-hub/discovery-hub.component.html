@@ -1,0 +1,111 @@
+<div class="container mx-auto p-4">
+  <div class="max-w-5xl mx-auto">
+    <!-- Active Challenge Header -->
+    @if (activeChallenge$ | async; as challenge) {
+      <div class="bg-base-200 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
+        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+          <img [src]="challenge.imageUrl" class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg object-cover" [alt]="challenge.title">
+          <div class="text-center sm:text-left">
+            <h1 class="text-2xl sm:text-3xl font-bold mb-2">{{ challenge.title }}</h1>
+            <p class="text-gray-600 text-sm sm:text-base">{{ challenge.description | slice:0:100 }}{{ challenge.description.length > 100 ? '...' : '' }}</p>
+            <div class="mt-4 flex flex-wrap justify-center sm:justify-start gap-4 text-sm">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-users text-gray-500"></i>
+                <span>{{ submissions?.length || 0 }} Participants</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fas fa-clock text-gray-500"></i>
+                <span>Challenge ends in {{ getRemainingDays(challenge.endDate) }} days</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="text-center py-8 sm:py-12">
+        <i class="fas fa-trophy text-4xl sm:text-6xl text-gray-300 mb-4"></i>
+        <h2 class="text-xl sm:text-2xl font-bold">No Active Challenge</h2>
+        <p class="text-gray-600">Check back soon for new challenges!</p>
+      </div>
+    }
+
+    <!-- Leaderboard -->
+    @if (submissions?.length) {
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="p-4 sm:p-6 bg-base-200">
+          <h2 class="text-xl sm:text-2xl font-bold">Leaderboard</h2>
+          <p class="text-gray-600 text-sm sm:text-base">Top submissions from the community</p>
+        </div>
+        
+        <div class="divide-y">
+          @for (submission of sortedSubmissions; track submission.id) {
+            <div class="p-4 sm:p-6 hover:bg-base-100 transition-colors">
+              <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                <!-- Rank -->
+                <div class="flex-none w-12 h-12 relative">
+                  <div [class]="submission.rank <= 3 ? 'absolute -top-2 -right-2 w-6 h-6 flex items-center justify-center rounded-full shadow-lg' : ''"
+                       [class.bg-blue-500]="submission.rank === 1"
+                       [class.bg-yellow-500]="submission.rank === 2"
+                       [class.bg-gray-500]="submission.rank === 3">
+                    @if (submission.rank === 1) {
+                      <i class="fas fa-gem text-white text-sm" title="Diamond"></i>
+                    } @else if (submission.rank === 2) {
+                      <i class="fas fa-medal text-white text-sm" title="Gold"></i>
+                    } @else if (submission.rank === 3) {
+                      <i class="fas fa-award text-white text-sm" title="Silver"></i>
+                    }
+                  </div>
+                  <div [class]="'w-full h-full rounded-full flex items-center justify-center font-bold text-xl ' + 
+                              (submission.rank === 1 ? 'bg-blue-100 text-blue-600' : 
+                               submission.rank === 2 ? 'bg-yellow-100 text-yellow-600' : 
+                               submission.rank === 3 ? 'bg-gray-100 text-gray-600' : 
+                               'bg-base-200')">
+                    {{ submission.rank }}
+                  </div>
+                </div>
+                
+                <!-- User Info -->
+                <div class="flex items-center gap-4 flex-1">
+                  <img [src]="submission.userprofile" class="w-12 h-12 rounded-full" [alt]="submission.username">
+                  <div class="text-center sm:text-left">
+                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                      <h3 class="font-semibold">{{ submission.username }}</h3>
+                      @if (submission.rank === 1) {
+                        <span class="text-xs px-2 py-1 bg-blue-100 text-blue-600 rounded-full">Diamond</span>
+                      } @else if (submission.rank === 2) {
+                        <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full">Gold</span>
+                      } @else if (submission.rank === 3) {
+                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full">Silver</span>
+                      }
+                    </div>
+                    <p class="text-sm text-gray-600">{{ submission.notes | slice:0:50 }}{{ submission.notes.length > 50 ? '...' : '' }}</p>
+                  </div>
+                </div>
+
+                <!-- Media Preview -->
+                @if (submission.mediaUrls?.length) {
+                  <div class="flex-none w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden">
+                    @if (submission.mediaUrls[0].includes('video')) {
+                      <video [src]="submission.mediaUrls[0]" class="w-full h-full object-cover"></video>
+                    } @else {
+                      <img [src]="submission.mediaUrls[0]" class="w-full h-full object-cover">
+                    }
+                  </div>
+                }
+                
+                <!-- Votes -->
+                <div class="flex-none mt-2 sm:mt-0">
+                  <div class="flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-2 bg-base-200 rounded-full text-sm">
+                    <i class="fas fa-thumbs-up"></i>
+                    <span class="font-semibold">{{ submission.votes || 0 }}</span>
+                    <span class="text-gray-600">votes</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

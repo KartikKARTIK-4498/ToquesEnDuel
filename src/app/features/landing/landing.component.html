@@ -1,0 +1,492 @@
+<!-- Hero Section -->
+<header class="fixed top-0 left-0 right-0 bg-white z-50 py-4 shadow-sm">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-2">
+          <img src="assets/logo.svg" alt="Toques en Duel" class="w-14 h-14">
+          <span class="text-xl tracking-wide font-alice font-bold text-brand-red">
+            TOQUES<br>
+            EN DUEL
+          </span>
+        </a>
+
+        <!-- Navigation -->
+        <nav class="hidden lg:flex items-center gap-12">
+          <a (click)="scrollToSection('home')" class="font-poppins text-[#2B2B2B] hover:text-brand-red transition-colors">Home</a>
+          <a  (click)="scrollToSection('aboutsection')" class="font-poppins text-[#2B2B2B] hover:text-brand-red transition-colors">About us</a>
+          <a (click)="scrollToSection('top')"  class="font-poppins text-[#2B2B2B] hover:text-brand-red transition-colors">Top Recipes</a>
+          <a  (click)="scrollToSection('challenges')" class="font-poppins text-[#2B2B2B] hover:text-brand-red transition-colors">Challenges</a>
+          <a  (click)="scrollToSection('community')" class="font-poppins text-[#2B2B2B] hover:text-brand-red transition-colors">Community</a>
+        </nav>
+
+        <!-- Login Button -->
+        <button (click)="login()" class="bg-brand-red hover:bg-rose-600 text-white font-poppins font-medium px-8 py-3 rounded-full transition-colors">
+          Login
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="pt-28 pb-16 bg-hero-gradient">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-16">
+        <!-- Left Content -->
+        <div class="flex-1 max-w-xl pt-8">
+          <!-- Community Pill -->
+          <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-6 py-2.5 rounded-full mb-10 shadow-sm">
+            <span class="font-poppins text-[#2B2B2B] text-sm">Join Your Food Community</span>
+            <div class="w-6 h-6 bg-brand-red rounded-full flex items-center justify-center text-white text-sm">
+              →
+            </div>
+          </div>
+
+          <!-- Main Heading -->
+          <h1 class="font-alice text-[3.5rem] leading-[1.2] text-[#2B2B2B] mb-6">
+            Explore the <span class="text-brand-red">World</span><br>
+            Through <span class="text-brand-red">Culinary</span><br>
+            <span class="text-brand-red">Challenges</span>
+          </h1>
+
+          <!-- Description -->
+          <p class="font-poppins text-gray-600 text-lg mb-10 leading-relaxed">
+            Join weekly cooking adventures inspired by<br>
+            global cuisines. Share your creations, connect<br>
+            with food enthusiasts, and celebrate cultural<br>
+            diversity through food.
+          </p>
+
+          <!-- CTA Button -->
+          <button class="bg-brand-red hover:bg-rose-600 text-white font-poppins font-medium px-8 py-4 rounded-lg transition-colors text-lg">
+            Explore Now!
+          </button>
+
+          <!-- Decorative Star -->
+          <div class="relative">
+            <img src="assets/star.svg" alt="" class="absolute -bottom-4 -left-8 w-8 h-8 animate-pulse">
+          </div>
+        </div>
+
+        <!-- Right Image Section -->
+        <div class="flex-1 relative flex justify-end">
+          <img src="assets/hero.png" alt="Hero" class="w-[600px] h-auto object-contain">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="aboutsection" class="py-24  bg-hero-gradient">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <h2 class="text-center mb-20">
+        <span class="font-alice text-[2.5rem] text-[#2B2B2B]">Get to Know Us: Our Passion for</span><br>
+        <span class="font-alice text-[2.5rem] text-brand-red">Food and Community</span>
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Wide Range of Recipes -->
+        <div class="bg-[#FFF5F5] rounded-2xl p-8 text-center group hover:shadow-lg transition-shadow duration-300">
+          <div class="h-64 flex items-center justify-center mb-6">
+            <img src="assets/featured1.svg" alt="Recipes" class="w-full max-w-[280px]">
+          </div>
+          <h3 class="font-alice text-2xl text-[#2B2B2B] mb-4">Wide Range of Recipes</h3>
+          <p class="font-poppins text-gray-600 leading-relaxed">
+            Try out a diverse collection of<br>
+            recipes from around the world,
+          </p>
+        </div>
+
+        <!-- Meet Top Creators -->
+        <div class="bg-[#FFF5F5] rounded-2xl p-8 text-center group hover:shadow-lg transition-shadow duration-300">
+          <div class="h-64 flex items-center justify-center mb-6">
+            <img src="assets/featured2.svg" alt="Creators" class="w-full max-w-[280px]">
+          </div>
+          <h3 class="font-alice text-2xl text-[#2B2B2B] mb-4">Meet Top Creators</h3>
+          <p class="font-poppins text-gray-600 leading-relaxed">
+            Connect with and get inspired by<br>
+            our top culinary creators who<br>
+            share their best recipes, tips,
+          </p>
+        </div>
+
+        <!-- Join Community -->
+        <div class="bg-[#FFF5F5] rounded-2xl p-8 text-center group hover:shadow-lg transition-shadow duration-300">
+          <div class="h-64 flex items-center justify-center mb-6">
+            <img src="assets/featured3.svg" alt="Community" class="w-full max-w-[280px]">
+          </div>
+          <h3 class="font-alice text-2xl text-[#2B2B2B] mb-4">Join a fav Community</h3>
+          <p class="font-poppins text-gray-600 leading-relaxed">
+            Be part of a vibrant community of<br>
+            food enthusiasts who love to share,<br>
+            discuss, and celebrate all things
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Featured Recipe Section -->
+  <!-- <section class="py-24 bg-brand-pink">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <h2 class="text-center mb-20">
+        <span class="font-alice text-[2.5rem] text-[#2B2B2B]">Featured</span><br>
+        <span class="font-alice text-[2.5rem] text-brand-red">Recipe</span>
+      </h2>
+      
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="flex flex-col md:flex-row">
+            <div class="md:w-1/2">
+              <img [src]="featuredRecipe.image" [alt]="featuredRecipe.title" 
+                class="w-full h-full object-cover">
+            </div>
+            
+            <div class="md:w-1/2 p-8 flex flex-col justify-center">
+              <h3 class="font-alice text-3xl text-[#2B2B2B] mb-6">{{ featuredRecipe.title }}</h3>
+              <p class="font-poppins text-gray-600 leading-relaxed mb-8">
+                Experience the perfect blend of spices and tenderness in our featured recipe. 
+                This dish combines traditional flavors with modern cooking techniques.
+              </p>
+              <button class="bg-brand-red hover:bg-rose-600 text-white font-poppins font-medium 
+                px-8 py-4 rounded-lg transition-colors text-lg self-start">
+                View Recipe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+ <!-- Video Spotlight Section -->
+ <section id="top" class="py-24 bg-hero-gradient">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <!-- Title with exact styling -->
+    <div class="text-center mb-20">
+      <h2 class="font-alice text-[2.75rem] text-[#2B2B2B] leading-tight">
+        Spotlight on Our Top
+      </h2>
+      <p class="font-alice text-[2.75rem] text-brand-red leading-tight">
+        Creator's Recipe
+      </p>
+    </div>
+
+    <!-- Recipe Cards Container -->
+    <div class="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto px-4">
+      <div *ngFor="let video of recipeVideos" 
+        class="group flex-1 bg-[#FFF5F5] rounded-[24px] overflow-hidden p-4">
+        <!-- Title -->
+        <h3 class="font-alice text-[#2B2B2B] text-xl mb-4">{{ video.title }}</h3>
+        
+        <!-- Video/Image Container -->
+        <div class="relative rounded-2xl overflow-hidden aspect-square">
+          <!-- Thumbnail -->
+          <img [src]="video.thumbnailUrl" [alt]="video.title" 
+            class="w-full h-auto object-cover transition-opacity duration-300 group-hover:opacity-0">
+          
+          <!-- Video -->
+          <video [src]="video.videoUrl" 
+            class="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100"
+            loop muted
+            #videoPlayer
+            (mouseenter)="videoPlayer.play()"
+            (mouseleave)="videoPlayer.pause(); videoPlayer.currentTime = 0">
+          </video>
+        </div>
+
+        <!-- Watch Recipe Video Button -->
+        <div class="mt-4">
+          <button class="flex items-center gap-2 bg-[#2B2B2B] text-white px-4 py-2.5 rounded-full">
+            <span class="font-poppins text-sm">Watch Recipe Video</span>
+            <i class="fas fa-circle-play text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <div class="flex justify-center items-center gap-2 mt-8">
+      <button class="w-10 h-10 rounded-full bg-[#E5E7EB] hover:bg-gray-300 transition-colors">
+        <svg class="w-6 h-6 mx-auto text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button class="w-10 h-10 rounded-full bg-brand-red hover:bg-rose-600 transition-colors">
+        <svg class="w-6 h-6 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Weekly Challenge Section -->
+  <section id="challenges" class="py-24 bg-hero-gradient">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <!-- Title -->
+      <div class="text-center mb-20">
+        <h2 class="font-alice text-[2.75rem] text-[#2B2B2B] leading-tight">
+          Spotlight on Our Top
+        </h2>
+        <p class="font-alice text-[2.75rem] text-brand-red leading-tight">
+          Weekly Challenge
+        </p>
+      </div>
+
+      <!-- Challenges Card -->
+      <div class="max-w-5xl mx-auto bg-white rounded-[32px] shadow-lg p-8">
+        <div class="space-y-8">
+          <!-- Header -->
+          <div>
+            <h3 class="text-2xl font-bold text-[#2B2B2B] mb-6">Challenges</h3>
+            
+            <!-- Tabs -->
+            <div class="flex gap-8 border-b border-gray-200">
+              <button 
+                (click)="setActiveTab('upcoming')"
+                [class]="activeTab === 'upcoming' ? 'text-brand-red border-b-2 border-brand-red pb-2' : 'text-gray-500 pb-2'"
+                class="font-poppins">
+                Upcoming
+              </button>
+              <button 
+                (click)="setActiveTab('completed')"
+                [class]="activeTab === 'completed' ? 'text-brand-red border-b-2 border-brand-red pb-2' : 'text-gray-500 pb-2'"
+                class="font-poppins">
+                Completed
+              </button>
+            </div>
+          </div>
+
+          <!-- Date Filter -->
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <input type="text" 
+                placeholder="Start Date - End Date" 
+                [(ngModel)]="selectedDateRange"
+                class="w-full px-4 py-3 rounded-lg border border-gray-300 font-poppins text-gray-600">
+            </div>
+            <button class="px-4 py-3 bg-gray-100 rounded-lg">
+              <i class="fas fa-arrows-rotate text-gray-600"></i>
+            </button>
+          </div>
+
+          <!-- Challenge Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div *ngFor="let challenge of getFilteredChallenges()" 
+              class="bg-gray-100 rounded-2xl aspect-square animate-pulse">
+              <!-- Challenge cards will be populated here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Community Section -->
+<section id="community" class="py-24 bg-hero-gradient overflow-hidden">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="font-alice text-[2.75rem] text-[#2B2B2B] leading-tight">
+        See What Makes Our
+      </h2>
+      <p class="handlee text-[2.75rem] text-brand-red leading-tight">
+        Creator's Recipe
+      </p>
+    </div>
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <!-- Left Side with Chef and Floating Elements -->
+      <div class="lg:w-1/2 relative">
+        <!-- Pink Circle Background -->
+        <!-- <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-pink-50 rounded-full"></div> -->
+        
+        <!-- Chef Image -->
+        <img src="assets/shine.svg" alt="" >
+      </div>
+
+      <!-- Right Side Content -->
+      <div class="lg:w-1/2 text-center lg:text-left">
+        <!-- Red Accent -->
+        <!-- <div class="flex justify-center lg:justify-start mb-4">
+          <svg class="w-6 h-6 text-brand-red" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99z"/>
+          </svg>
+        </div> -->
+<!--         
+        <h2 class="font-alice text-[2.75rem] text-[#2B2B2B] leading-tight mb-4">
+          See What Makes Our
+        </h2>
+        <p class="font-alice text-[2.75rem] text-brand-red leading-tight mb-8">
+          Community Shine
+        </p> -->
+
+        <h3 class="font-alice text-3xl font-bold text-[#2B2B2B] mb-4">
+          Experience the Passion and Creativity of Our Top Community Members!
+        </h3>
+        
+        <p class="font-poppins text-gray-600 mb-12 max-w-xl">
+          Discover the passion and creativity of our most active members and see why they're 
+          the heart of our platform.
+        </p>
+
+        <!-- Community Members -->
+        <div class="flex items-center gap-[-8px] mb-8">
+          <div class="flex -space-x-4">
+            <div *ngFor="let member of communityMembers" class="overflow-hidden rounded-full w-12 h-12 border-2 border-white">
+              <img [src]="member.avatar" [alt]="member.name" class="w-full h-full object-cover">
+            </div>
+          </div>
+          <span class="ml-2 px-3 py-1 bg-brand-red text-white rounded-full text-sm">
+            +{{ memberCount + 'k' }}
+          </span>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="bg-brand-red hover:bg-rose-600 text-white font-poppins px-8 py-4 rounded-full text-lg transition-colors">
+          Join the Community Now
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Community Section -->
+<section class="py-12 bg-hero-gradient overflow-hidden">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="font-alice text-[2.75rem] text-[#2B2B2B] leading-tight">
+        What Our Members 
+      </h2>
+      <p class="handlee text-[2.75rem] text-brand-red leading-tight">
+        Are Saying
+            </p>
+    </div>
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <!-- Left Side with Chef and Floating Elements -->
+      <div class="lg:w-1/2 relative">
+        <!-- Pink Circle Background -->
+        <!-- <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-pink-50 rounded-full"></div> -->
+        
+        <!-- Chef Image -->
+        <img src="assets/members.svg" alt="" >
+      </div>
+
+      <!-- Right Side Content -->
+      <div class="lg:w-1/2 text-center lg:text-left">
+        <!-- Red Accent -->
+        <!-- <div class="flex justify-center lg:justify-start mb-4">
+          <svg class="w-6 h-6 text-brand-red" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99z"/>
+          </svg>
+        </div> -->
+
+         <!-- Testimonial Card -->
+         <div class="max-w-2xl mx-auto bg-white rounded-[32px] shadow-lg p-12 relative">
+          <!-- Navigation Buttons -->
+          <button (click)="prevTestimonial()" 
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 w-12 h-12 bg-brand-red rounded-full flex items-center justify-center shadow-lg hover:bg-rose-600 transition-colors">
+            <i class="fas fa-chevron-left text-white"></i>
+          </button>
+          <button (click)="nextTestimonial()" 
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 w-12 h-12 bg-brand-red rounded-full flex items-center justify-center shadow-lg hover:bg-rose-600 transition-colors">
+            <i class="fas fa-chevron-right text-white"></i>
+          </button>
+
+          <!-- Testimonial Content -->
+          <div class="text-center">
+            <!-- User Avatar -->
+            <div class="mb-4">
+              <img [src]="testimonials[currentTestimonial].avatar" 
+                [alt]="testimonials[currentTestimonial].name"
+                class="w-20 h-20 rounded-full mx-auto border-4 border-white shadow-lg">
+            </div>
+
+            <!-- User Info -->
+            <h4 class="font-alice text-xl text-[#2B2B2B] font-bold mb-1">
+              {{ testimonials[currentTestimonial].name }}
+            </h4>
+            <p class="font-poppins text-gray-500 text-sm mb-6">
+              {{ testimonials[currentTestimonial].role }}
+            </p>
+
+            <!-- Testimonial Text -->
+            <p class="font-poppins text-[#2B2B2B] text-lg leading-relaxed max-w-xl mx-auto">
+              {{ testimonials[currentTestimonial].content }}
+            </p>
+          </div>
+        </div>
+
+
+       </div>
+    </div>
+  </div>
+</section>
+
+
+ 
+<!-- Footer -->
+<footer class="bg-white pt-20 pb-8">
+  <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+      <!-- Brand Column -->
+      <div class="col-span-1">
+        <img src="assets/logo.svg" alt="Toques en Duel" class="h-16 mb-6">
+        <p class="font-poppins text-gray-600 mb-6">
+          Our community-driven platform makes it easy to find your next favorite dish and connect with fellow food enthusiasts—all with just one click.
+        </p>
+        <div class="flex gap-4">
+          <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-brand-red hover:text-white transition-colors">
+            <i class="fab fa-instagram text-xl"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-brand-red hover:text-white transition-colors">
+            <i class="fab fa-facebook-f text-xl"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-brand-red hover:text-white transition-colors">
+            <i class="fab fa-twitter text-xl"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- About Column -->
+      <div class="col-span-1">
+        <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">About</h3>
+        <ul class="space-y-4">
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">About Us</a></li>
+          <li><a href="#" (click)="scrollToSection('aboutsection')" class="font-poppins text-gray-600 hover:text-brand-red">About us</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">News</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Menu</a></li>
+        </ul>
+      </div>
+
+      <!-- Company Column -->
+      <div class="col-span-1">
+        <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Company</h3>
+        <ul class="space-y-4">
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Home</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Top Creators</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">FAQ</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Support Column -->
+      <div class="col-span-1">
+        <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Support</h3>
+        <ul class="space-y-4">
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Account</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Support Center</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Feedback</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Contact Us</a></li>
+          <li><a href="#" class="font-poppins text-gray-600 hover:text-brand-red">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright bg-[#CE585E]  -->
+  <div class="pt-8 border-t border-gray-200 flex justify-center items-center">
+    <p class="font-poppins text-black"> 2024 InterCulture. All rights reserved.</p>
+  </div>
+  </div>
+
+</footer>

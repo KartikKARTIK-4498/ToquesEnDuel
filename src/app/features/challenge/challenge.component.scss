@@ -1,0 +1,61 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  transition: transform 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.badge {
+  text-transform: capitalize;
+}
+
+.stats {
+  width: 100%;
+  
+  .stat {
+    @apply bg-base-300;
+    padding: 1rem;
+    
+    .stat-title {
+      @apply opacity-70;
+    }
+    
+    .stat-value {
+      @apply text-2xl font-bold;
+    }
+  }
+}
+
+.rating {
+  input[type="radio"] {
+    cursor: default;
+  }
+}
+
+.form-control {
+  .label-text {
+    @apply font-medium;
+  }
+  
+  textarea {
+    min-height: 100px;
+  }
+}
+
+.list-disc, .list-decimal {
+  li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.card-actions {
+  .btn {
+    min-width: 120px;
+  }
+}

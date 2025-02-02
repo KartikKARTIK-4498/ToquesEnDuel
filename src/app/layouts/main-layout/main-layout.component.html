@@ -1,0 +1,203 @@
+<!-- Main Layout -->
+<div class="min-h-screen bg-white">
+  <!-- Navbar -->
+  <header class="fixed top-0 left-0 right-0 bg-white z-50 py-4 shadow-sm">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <!-- Logo -->
+        <a routerLink="/" class="flex items-center gap-2">
+          <img src="assets/logo.svg" alt="InterCulture" class="w-14 h-14">
+          <span class="text-xl tracking-wide font-alice font-bold text-brand-red">
+            INTER<br>
+            CULTURE
+          </span>
+        </a>
+
+        <!-- Navigation -->
+        <nav class="hidden lg:flex items-center gap-12">
+          <a routerLink="/dashboard" routerLinkActive="bg-brand-red p-6 rounded-lg text-white" class="flex items-center gap-2 font-poppins text-[#2B2B2B] transition-colors">
+            <i class="fas fa-home"></i>
+            <span class="hidden md:inline">Dashboard</span>
+          </a>
+          <a routerLink="/challenge" routerLinkActive="bg-brand-red p-6 rounded-lg text-white" class="flex items-center gap-2 font-poppins text-[#2B2B2B] transition-colors">
+            <i class="fas fa-flag"></i>
+            <span class="hidden md:inline">Challenges</span>
+          </a>
+          <a routerLink="/discovery" routerLinkActive="bg-brand-red p-6 rounded-lg text-white" class="flex items-center gap-2 font-poppins text-[#2B2B2B] transition-colors">
+            <i class="fas fa-trophy"></i>
+            <span class="hidden md:inline">Leaderboard</span>
+          </a>
+          <a routerLink="/community" routerLinkActive="bg-brand-red p-6 rounded-lg text-white" class="flex items-center gap-2 font-poppins text-[#2B2B2B] transition-colors">
+            <i class="fas fa-users"></i>
+            <span class="hidden md:inline">Community</span>
+          </a>
+        </nav>
+
+        <!-- Mobile Navigation -->
+        <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-3">
+          <div class="flex justify-around items-center">
+            <a routerLink="/dashboard" routerLinkActive="text-brand-red" class="flex flex-col items-center gap-1">
+              <i class="fas fa-home text-xl"></i>
+            </a>
+            <a routerLink="/challenge" routerLinkActive="text-brand-red" class="flex flex-col items-center gap-1">
+              <i class="fas fa-flag text-xl"></i>
+            </a>
+            <a routerLink="/discovery" routerLinkActive="text-brand-red" class="flex flex-col items-center gap-1">
+              <i class="fas fa-trophy text-xl"></i>
+            </a>
+            <a routerLink="/community" routerLinkActive="text-brand-red" class="flex flex-col items-center gap-1">
+              <i class="fas fa-users text-xl"></i>
+            </a>
+          </div>
+        </nav>
+
+        <!-- Profile/Notifications -->
+        <div class="flex items-center gap-4">
+          <button class="p-2 hover:bg-gray-100 rounded-full transition-colors relative" (click)="viewChallenge()">
+            <i class="fas fa-bell text-[#2B2B2B] text-xl"></i>
+            <span *ngIf="showRedDot" class="absolute top-0 right-0 h-2 w-2 bg-brand-red rounded-full"></span>
+          </button>
+          <div class="relative">
+            <div *ngIf="isDropdownOpen2" class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 z-50">
+              <div class="px-4 py-2">
+                <h3 class="font-semibold text-lg">New Challenge Available!</h3>
+                <p class="text-sm text-gray-600">{{ activeChallenge?.title }}</p>
+                <p class="text-xs text-gray-500">{{ activeChallenge?.description | slice:0:100 }}{{ activeChallenge?.description.length > 100 ? '...' : '' }}</p>
+                <button class="mt-2 text-brand-red text-sm font-medium hover:underline" (click)="toggleDropdown2()">Close</button>
+              </div>
+            </div>
+            
+            <button *ngIf="isAuthenticated" (click)="toggleDropdown()" 
+                    class="p-2 hover:bg-gray-100 rounded-full transition-colors flex items-center gap-2">
+              <img [src]="userPhotoUrl" 
+                   [alt]="userName" 
+                   class="w-8 h-8 rounded-full object-cover">
+              <i class="fas fa-chevron-down text-[#2B2B2B] text-sm hidden md:inline-block"></i>
+            </button>
+            <a *ngIf="!isAuthenticated" 
+               routerLink="/auth/login" 
+               class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">
+              <i class="fas fa-user-circle text-xl text-[#2B2B2B]"></i>
+              <span class="font-medium hidden md:inline-block">Login</span>
+            </a>
+
+            <!-- Dropdown Menu -->
+            <div *ngIf="isDropdownOpen" 
+                 class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+              <div class="px-4 py-2 border-b border-gray-100">
+                <p class="font-medium">{{ userName }}</p>
+                <p class="text-sm text-gray-600">View Profile</p>
+              </div>
+              <button (click)="logout()" 
+                      class="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors flex items-center gap-2">
+                <i class="fas fa-sign-out-alt text-gray-600"></i>
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 md:px-6 lg:px-8 pt-28 pb-16">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white pt-20 pb-8 border-t border-gray-200">
+    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <!-- Brand Column -->
+        <div class="col-span-1">
+          <a routerLink="/" class="flex items-center gap-2 mb-6">
+            <img src="assets/logo.svg" alt="InterCulture" class="w-14 h-14">
+            <span class="text-xl tracking-wide font-alice font-bold text-brand-red">
+              INTER<br>
+              CULTURE
+            </span>
+          </a>
+          <p class="font-poppins text-gray-600">Connecting cultures through the love of food</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-span-1">
+          <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Quick Links</h3>
+          <ul class="space-y-4">
+            <li>
+              <a routerLink="/dashboard" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
+                <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/challenge" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
+                <i class="fas fa-flag text-sm" [ngClass]="{'text-white': isActive}"></i>
+                <span>Challenges</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/discovery" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
+                <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
+                <span>Discover</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Community -->
+        <div class="col-span-1">
+          <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Community</h3>
+          <ul class="space-y-4">
+            <li>
+              <a routerLink="/community" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
+                <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
+                <span>Members</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/events" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
+                <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
+                <span>Events</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/forum" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
+                <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
+                <span>Forum</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="col-span-1">
+          <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Contact</h3>
+          <ul class="space-y-4">
+            <li>
+              <a href="mailto:support@interculture.com" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
+                <i class="fas fa-envelope text-sm"></i>
+                <span>support&#64;interculture.com</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
+                <i class="fas fa-question-circle text-sm"></i>
+                <span>Help Center</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 border-t border-gray-200 flex justify-center items-center">
+        <p class="font-poppins text-gray-600">
+          <i class="far fa-copyright mr-2"></i>
+          2024 InterCulture. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,144 @@
+<div class="container mx-auto p-4 max-w-7xl">
+  <!-- Active Weekly Challenge Timeline -->
+  <div class="grid grid-cols-12 gap-6">
+    <!-- Left Sidebar -->
+    <div class="col-span-3 bg-base-200 rounded-lg p-4">
+      <h2 class="font-bold mb-4">Active Weekly Challenges Timeline</h2>
+      <div class="flex items-center gap-2 mb-4">
+        <img [src]="activeChallenge?.imageUrl" class="w-8 h-8 rounded-full object-cover" [alt]="activeChallenge?.title">
+        <span class="text-sm">{{ activeChallenge?.title }}</span>
+      </div>
+      
+      <!-- Timeline -->
+      <div class="space-y-2">
+        <div *ngFor="let day of timelineDays" 
+             class="flex items-center gap-2 p-2 rounded-lg"
+             [class.bg-primary]="day.isToday"
+             [class.bg-base-100]="!day.isToday && day.isPast"
+             [class.opacity-50]="!day.isToday && !day.isPast">
+          <span class="font-medium">Day {{ day.day }}</span>
+          <span class="text-xs">{{ day.date }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-span-9">
+      <!-- Active Challenge Header -->
+      <div class="bg-base-100 rounded-lg p-6 mb-6">
+        <div class="flex items-center gap-4">
+          <img [src]="activeChallenge?.imageUrl" class="w-16 h-16 rounded-lg object-cover" [alt]="activeChallenge?.title">
+          <div>
+            <h1 class="text-2xl font-bold">{{ activeChallenge?.title }}</h1>
+            <p class="text-sm text-gray-600 mt-1">{{ remainingDays }} days remaining</p>
+          </div>
+          <button class="btn btn-primary ml-auto" (click)="viewActiveChallenge()">View Active Challenge</button>
+        </div>
+      </div>
+
+      <!-- Submissions Feed -->
+      <div class="space-y-6">
+        <div *ngFor="let submission of allSubmissions" class="bg-white rounded-2xl shadow-sm overflow-hidden">
+          <!-- Submission Header -->
+          <div class="p-4 flex gap-3">
+            <img [src]="submission.userprofile" class="w-12 h-12 rounded-full" [alt]="submission.username">
+            <div class="flex-1">
+              <div class="flex flex-col">
+                <div class="flex items-center gap-3">
+                  <h3 class="font-semibold text-base">{{ submission.username }}</h3>
+                  <div class="bg-pink-50 text-pink-700 text-xs px-2 py-1 rounded-full flex items-center gap-1.5">
+                    <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none">
+                      <path d="M3.5 6L5.5 8L8.5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>{{ submission.username }} Joined in {{ activeChallenge?.title }}</span>
+                  </div>
+                </div>
+                <p class="text-gray-500 text-sm">Posted on {{ submission.timestamp | date:'d MMM, yyyy' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submission Content -->
+          <div class="px-4 pb-4">
+            <div class="space-y-2">
+              <p [class.line-clamp-2]="!isNoteExpanded(submission.id)" class="text-gray-700">
+                {{ submission.notes }}
+              </p>
+              <button *ngIf="shouldShowMoreButton(submission.notes)" 
+                      (click)="toggleNoteExpansion(submission.id)" 
+                      class="text-gray-500 hover:text-gray-700 text-sm">
+                {{ isNoteExpanded(submission.id) ? 'see less' : 'see more' }}
+              </button>
+            </div>
+            
+            <!-- Media Grid -->
+            <div *ngIf="submission.mediaUrls?.length" class="grid grid-cols-2 gap-2 mt-4">
+              <div *ngFor="let mediaUrl of submission.mediaUrls" class="relative w-[800px] h-[600px] overflow-hidden flex items-center justify-center group">
+                <div *ngIf="mediaUrl.includes('video')" class="relative w-full h-full">
+                  <video [src]="mediaUrl" class="absolute inset-0 w-full h-full object-cover filter blur-md" [muted]="true" [loop]="true" ></video>
+                  <video [src]="mediaUrl"
+                         #videoPlayer
+                         (click)="togglePlay(videoPlayer)"
+                         class="relative z-10 w-full h-auto max-h-full object-contain rounded-lg cursor-pointer">
+                  </video>
+                  <!-- Custom Video Controls -->
+                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                    <div class="flex items-center gap-2">
+                      <button class="text-white hover:text-primary" (click)="togglePlay(videoPlayer)">
+                        <svg *ngIf="!isPlaying(videoPlayer)" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        </svg>
+                        <svg *ngIf="isPlaying(videoPlayer)" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </button>
+                      <!-- Progress Bar -->
+                      <div class="relative flex-1 h-1 bg-white/30 rounded cursor-pointer" (click)="seekVideo($event, videoPlayer)">
+                        <div class="absolute h-full bg-primary rounded" [style.width.%]="getProgress(videoPlayer)"></div>
+                      </div>
+                      <!-- Volume Control -->
+                      <div class="relative group">
+                        <button class="text-white hover:text-primary" (click)="toggleMute(videoPlayer)">
+                          <svg *ngIf="!isMuted(videoPlayer)" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                          </svg>
+                          <svg *ngIf="isMuted(videoPlayer)" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2M19 12l2 2M19 12l-2 2" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!mediaUrl.includes('video')" class="relative w-full h-full">
+                  <img [src]="mediaUrl" class="absolute inset-0 w-full h-full object-cover filter blur-md">
+                  <img [src]="mediaUrl"
+                       class="relative z-10 w-full h-auto max-h-full object-contain rounded-lg cursor-pointer"
+                       [alt]="submission.username + '\'s submission'">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="px-4 py-3 border-t border-gray-100 flex items-center justify-between">
+            <button class="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors" 
+                    (click)="voteSubmission(submission.id)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2-2 0 012-2h2.5" />
+              </svg>
+              <span> {{ submission.votes || 0 }} Vote</span>
+            </button>
+            <div class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Challenge ends in {{ remainingDays }} days</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

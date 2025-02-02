@@ -1,0 +1,271 @@
+<div *ngIf="isLoading" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg p-8 flex flex-col items-center">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary mb-4"></div>
+    <p class="text-gray-700 font-medium">Loading challenges...</p>
+  </div>
+</div>
+
+<div *ngIf="!isAuthenticated" class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4">
+  <div class="flex items-center justify-center">
+    <div class="flex-shrink-0">
+      <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <div class="ml-3">
+      <p>Please <a routerLink="/auth/login" class="font-bold hover:underline">login</a> to participate in challenges and submit your entries.</p>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-auto p-4 max-w-7xl">
+  <div class="flex min-h-screen bg-base-100" [class.pointer-events-none]="isLoading">
+    <!-- Left Timeline -->
+    <div class="w-64 bg-base-200 p-4 hidden md:block">
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="font-semibold mb-4">Challenge Timeline</h2>
+        <div *ngIf="activeChallenges.length > 0" class="mb-3">
+          <p class="text-sm font-medium">Current Progress: Day {{ currentChallengeDay }}</p>
+          <p class="text-xs text-gray-600">Started on {{ activeChallenges[0].startDate.seconds * 1000 | date:'mediumDate' }}</p>
+        </div>
+        <div class="space-y-2">
+          <div *ngFor="let day of timelineDays" class="flex items-center gap-2">
+            <div class="flex items-center gap-2 w-full p-2 rounded-md transition-colors"
+                 [class.bg-error]="day.isCurrentDay" 
+                 [class.text-white]="day.isCurrentDay"
+                 [class.bg-base-100]="!day.isCurrentDay"
+                 [class.hover:bg-base-300]="!day.isCurrentDay">
+              <span class="w-8 font-medium">Day {{ day.day }}</span>
+              <span class="text-sm" [class.opacity-60]="!day.isCurrentDay">{{ day.date }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Content -->
+    <div class="flex-1 p-6 md:p-0">
+      <div class="mb-8">
+        <div class="flex ml-4 flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
+          <div class="flex flex-wrap gap-4 sm:gap-6 justify-center sm:justify-start">
+            <button (click)="changeChallengeView('active')" [class.opacity-100]="activeTab === 'active'" [class.opacity-60]="activeTab !== 'active'" class="font-medium text-sm sm:text-base">Active</button>
+            <button (click)="changeChallengeView('your')" [class.opacity-100]="activeTab === 'your'" [class.opacity-60]="activeTab !== 'your'" class="font-medium text-sm sm:text-base">Your Challenges</button>
+            <button (click)="changeChallengeView('upcoming')" [class.opacity-100]="activeTab === 'upcoming'" [class.opacity-60]="activeTab !== 'upcoming'" class="font-medium text-sm sm:text-base">Upcoming</button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Active Challenges Empty State -->
+          <div *ngIf="activeTab === 'active' && (!activeChallenges || activeChallenges.length === 0)" 
+               class="bg-base-200 rounded-xl p-8 max-w-lg mx-auto text-center">
+            <i class="fas fa-flag text-5xl text-gray-400 mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">No Active Challenges</h3>
+            <p class="text-gray-600 mb-6">You don't have any active challenges at the moment.</p>
+            <button class="btn btn-primary" 
+                    (click)="changeChallengeView('upcoming')"
+                    [disabled]="!isAuthenticated"
+                    [class.btn-disabled]="!isAuthenticated"
+                    [title]="!isAuthenticated ? 'Please login to explore challenges' : ''">
+              <i class="fas fa-calendar-plus mr-2"></i>
+              Explore Upcoming Challenges
+            </button>
+          </div>
+
+          <!-- Your Challenges Empty State -->
+          <div *ngIf="activeTab === 'your' && (!yourChallenges || yourChallenges.length === 0)" 
+               class="bg-base-200 rounded-xl p-8 max-w-lg mx-auto text-center">
+            <i class="fas fa-trophy text-5xl text-gray-400 mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">No Completed Challenges</h3>
+            <p class="text-gray-600 mb-6">You haven't participated in any challenges yet.</p>
+            <button class="btn btn-primary" 
+                    (click)="changeChallengeView('active')"
+                    [disabled]="!isAuthenticated"
+                    [class.btn-disabled]="!isAuthenticated"
+                    [title]="!isAuthenticated ? 'Please login to join challenges' : ''">
+              <i class="fas fa-play-circle mr-2"></i>
+              Join a Challenge
+            </button>
+          </div>
+
+          <!-- Upcoming Challenges Empty State -->
+          <div *ngIf="activeTab === 'upcoming' && (!upcomingChallenges || upcomingChallenges.length === 0)" 
+               class="bg-base-200 rounded-xl p-8 max-w-lg mx-auto text-center">
+            <i class="fas fa-calendar-alt text-5xl text-gray-400 mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">No Upcoming Challenges</h3>
+            <p class="text-gray-600">There are no upcoming challenges at the moment.</p>
+            <p class="text-sm text-gray-500 mt-2">Check back soon for new challenges!</p>
+          </div>
+          <!-- Challenge Cards -->
+          <div class="space-y-4">
+            <div *ngFor="let challenge of renderedChallenges" class="bg-base-200 rounded-lg overflow-hidden">
+              <!-- Challenge Header -->
+              <div class="flex flex-col md:flex-row gap-4 p-4">
+                <div class="w-full md:w-32 h-32">
+                  <img [src]="challenge.imageUrl" [alt]="challenge.title" 
+                       class="w-full h-full object-cover rounded-lg"/>
+                </div>
+                <div class="flex-1">
+                  <div class="flex flex-col md:flex-row justify-between items-start">
+                    <div>
+                      <h3 class="text-lg font-medium">{{ challenge.title }}</h3>
+                      <p class="text-sm opacity-60">Challenge Date: {{ challenge.startDate.seconds * 1000 | date: 'dd MMM yyyy' }} • {{ challenge.endDate.seconds * 1000 | date: 'dd MMM yyyy' }}</p>
+                    </div>
+                    <button class="btn btn-error btn-sm text-white mt-2 md:mt-0" (click)="viewChallenge(challenge)">
+                      {{ selectedChallenge?.id === challenge.id && expandedView ? 'Hide Details' : 'View Challenge' }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Expanded View -->
+              <div *ngIf="selectedChallenge?.id === challenge.id && expandedView" 
+                   class="border-t border-base-300 p-4 md:p-6 bg-white">
+                <div class="mb-6 text-center md:text-left">
+                  <img [src]="challenge.imageUrl" [alt]="challenge.title" 
+                       class="w-full md:w-48 h-48 object-cover rounded-lg shadow-md mx-auto md:mx-0"/>
+                </div>
+                <!-- Challenge Content -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Left Column -->
+                  <div class="space-y-6">
+                    <div>
+                      <h3 class="font-semibold mb-2">Steps to join</h3>
+                      <div class="bg-gray-50 p-4 rounded-lg whitespace-pre-line">{{ defaultSteps }}</div>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold mb-2">Instructions</h3>
+                      <div class="bg-gray-50 p-4 rounded-lg whitespace-pre-line">{{ defaultInstructions }}</div>
+                    </div>
+                  </div>
+
+                  <!-- Right Column -->
+                  <div class="space-y-6">
+                    <div>
+                      <h3 class="font-semibold mb-2">Description</h3>
+                      <div class="bg-gray-50 p-4 rounded-lg">{{ selectedChallenge.description }}</div>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold mb-2">Tip</h3>
+                      <div class="bg-gray-50 p-4 rounded-lg">{{ defaultTip }}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Submission Box -->
+                <div class="mt-6 pt-6 border-t">
+                  <h3 class="font-semibold mb-4">Submission Box</h3>
+                  <div *ngIf="!showSubmissionForm && !hasSubmitted" class="bg-gray-50 p-4 rounded-lg text-center">
+                    <button class="btn btn-primary" 
+                            (click)="toggleSubmissionForm()"
+                            [disabled]="!isAuthenticated"
+                            [class.btn-disabled]="!isAuthenticated"
+                            [title]="!isAuthenticated ? 'Please login to submit your entry' : ''">
+                      Submit Your Entry
+                    </button>
+                  </div>
+
+                  <div *ngIf="hasSubmitted" class="bg-gray-50 p-4 rounded-lg text-center">
+                    <p class="text-success">You have already submitted an entry for this challenge!</p>
+                  </div>
+
+                  <!-- Submission Form -->
+                  <div *ngIf="showSubmissionForm && !hasSubmitted" class="card bg-base-200 shadow-xl">
+                    <div class="card-body">
+                      <h2 class="card-title text-xl md:text-2xl mb-4">Submit Your Entry</h2>
+                      <form [formGroup]="submissionForm" (ngSubmit)="submitChallenge()" class="space-y-6">
+                        <!-- File Upload -->
+                        <label class="form-control w-full">
+                          <div class="label">
+                            <span class="label-text">Upload Videos (MP4 format, max 100MB)</span>
+                          </div>
+                          <input type="file"
+                                 class="file-input file-input-bordered w-full"
+                                 accept="video/mp4,video/quicktime,video/x-msvideo"
+                                 multiple
+                                 (change)="onFileSelected($event)"
+                                 [class.file-input-error]="errorMessage"/>
+                          <div class="label">
+                            <span class="label-text-alt text-error">{{ errorMessage }}</span>
+                          </div>
+                        </label>
+
+                        <!-- File Preview -->
+                        <div *ngIf="selectedFiles.length > 0" class="mt-4">
+                          <h4 class="text-sm font-semibold mb-2">Selected Files:</h4>
+                          <div class="grid grid-cols-1 gap-4">
+                            <div *ngFor="let file of selectedFiles; let i = index" class="flex flex-col md:flex-row items-start md:items-center justify-between bg-base-200 p-2 rounded">
+                              <div class="flex items-center space-x-2 mb-2 md:mb-0">
+                                <span class="text-sm">{{ file.name }}</span>
+                                <div class="text-xs text-gray-500">({{ (file.size / 1024 / 1024).toFixed(2) }} MB)</div>
+                              </div>
+                              <div class="flex items-center space-x-2 w-full md:w-auto">
+                                <div *ngIf="uploadProgress[i] !== undefined" class="flex items-center w-full md:w-auto">
+                                  <div class="w-full md:w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary transition-all duration-300" [style.width.%]="uploadProgress[i]"></div>
+                                  </div>
+                                  <span class="ml-2 text-xs">{{ uploadProgress[i] }}%</span>
+                                </div>
+                                <button type="button" class="btn btn-ghost btn-xs" (click)="removeFile(i)">
+                                  <i class="fas fa-times"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-control">
+                          <label class="label">
+                            <span class="label-text text-lg">Notes</span>
+                          </label>
+                          <textarea class="textarea textarea-bordered h-24"
+                                    formControlName="notes"
+                                    placeholder="Share your thoughts about this dish..."></textarea>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row justify-end gap-4">
+                          <button type="button" class="btn btn-lg w-full md:w-auto" (click)="toggleSubmissionForm()">Cancel</button>
+                          <button type="submit" 
+                                  class="btn btn-lg btn-primary w-full md:w-auto" 
+                                  [disabled]="!submissionForm.value.notes || isUploading || selectedFiles.length === 0">
+                            {{ isUploading ? 'Uploading...' : 'Submit Entry' }}
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+                  <!-- Submissions List -->
+                  <div *ngIf="submissions?.length > 0" class="mt-6">
+                    <h3 class="font-semibold mb-4">Recent Submissions</h3>
+                    <div class="grid grid-cols-1 gap-4">
+                      <div *ngFor="let submission of submissions" class="card bg-base-100 shadow-xl">
+                        <div class="card-body">
+                          <div class="flex flex-col md:flex-row items-start justify-between">
+                            <div>
+                              <p class="text-sm text-gray-600">{{ submission.submittedAt | date:'medium' }}</p>
+                              <p class="mt-2">{{ submission.notes }}</p>
+                            </div>
+                          </div>
+                          <!-- Media Grid -->
+                          <div *ngIf="submission.mediaUrls?.length" class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+                            <div *ngFor="let mediaUrl of submission.mediaUrls" class="relative">
+                              <video *ngIf="mediaUrl.includes('video')"
+                                     [src]="mediaUrl"
+                                     class="w-full h-32 object-cover rounded-lg"
+                                     controls>
+                              </video>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

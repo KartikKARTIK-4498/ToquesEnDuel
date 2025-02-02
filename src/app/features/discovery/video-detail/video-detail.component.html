@@ -1,0 +1,66 @@
+<div class="container mx-auto p-4">
+  @if (video$ | async; as video) {
+  <article class="max-w-4xl mx-auto">
+    <!-- Video Player -->
+    <div class="aspect-w-16 aspect-h-9 mb-8">
+      <iframe
+        [src]="getSafeVideoUrl(video.videoUrl)"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        class="w-full h-full rounded-lg"
+      ></iframe>
+    </div>
+
+    <!-- Video Info -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">{{ video.title }}</h1>
+      <div class="flex items-center justify-between text-base-content/70 mb-4">
+        <div class="flex items-center gap-4">
+          <span>By {{ video.author }}</span>
+          <span>{{ getReadableDate(video.publishDate) }}</span>
+          <span>{{ formatDuration(video.duration) }}</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>{{ video.views }} views</span>
+          <span>{{ video.likes }} likes</span>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="flex gap-2 mb-4">
+        <div class="badge badge-outline">{{ video.cuisine }}</div>
+        <div class="badge badge-outline">{{ video.category }}</div>
+      </div>
+
+      <!-- Description -->
+      <div class="bg-base-200 p-4 rounded-lg mb-4">
+        <h2 class="font-semibold mb-2">Description</h2>
+        <p class="whitespace-pre-line">{{ video.description }}</p>
+      </div>
+
+      <!-- Like Button -->
+      <div class="flex justify-center">
+        @if (error) {
+        <div class="alert alert-error mb-4">
+          <span>{{ error }}</span>
+        </div>
+        }
+        <button 
+          class="btn btn-primary gap-2"
+          (click)="likeVideo(video.id)"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+          </svg>
+          Like Video
+        </button>
+      </div>
+    </div>
+  </article>
+  } @else {
+  <div class="flex justify-center items-center h-96">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+  }
+</div>

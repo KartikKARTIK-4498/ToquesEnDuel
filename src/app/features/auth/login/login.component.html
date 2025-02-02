@@ -1,0 +1,26 @@
+<div class="min-h-screen flex items-center justify-center  px-4">
+  <div class="w-full max-w-md">
+    <!-- Logo and Title -->
+    <div class="text-center mb-12">
+      <img src="assets/logo.svg" alt="Toques en Duel" class="h-32 mx-auto mb-6">
+      <h1 class="text-[#CE585E] text-4xl font-alice mb-2">TOQUES EN DUEL</h1>
+      <p class="text-gray-600 font-poppins">A Cullinary challenege app</p>
+    </div>
+
+    <!-- Login Options -->
+    <div class="space-y-4">
+      <!-- Google Sign In -->
+      <button (click)="loginWithGoogle()" 
+        class="w-full bg-white hover:bg-gray-50 text-gray-800 font-poppins py-4 px-6 rounded-full shadow-md flex items-center justify-center gap-3 transition-colors">
+        <i class="fab fa-google w-6 h-6"></i>
+        Sign in with Google
+      </button>
+
+      <!-- Guest Option -->
+      <button (click)="continueAsGuest()" 
+        class="w-full bg-transparent hover:bg-white/50 text-gray-600 font-poppins py-4 px-6 rounded-full transition-colors">
+        Continue as Guest
+      </button>
+    </div>
+  </div>
+</div>

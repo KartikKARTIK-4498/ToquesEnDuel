@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/interculture/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

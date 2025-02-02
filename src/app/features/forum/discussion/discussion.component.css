@@ -1,0 +1,62 @@
+.topic-content > * { /* Target all direct children of .topic-content */
+    margin-bottom: 1rem; /* Add 1rem bottom margin to all elements */
+  }
+  
+  .topic-content > *:last-child { /* Target the last direct child */
+    margin-bottom: 0; /* Remove bottom margin from the last element */
+  }
+
+/* Styling for headings */
+.topic-content h1 {
+    font-size: 2.5rem; 
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .topic-content h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Styling for paragraphs */
+  .topic-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  
+  /* Styling for images */
+  .topic-content img {
+    max-width: 100%;
+    height: auto;
+    display: block; 
+    margin-bottom: 1rem;
+  }
+  
+  /* Styling for other elements (you can add more as needed) */
+  .topic-content ul, 
+  .topic-content ol {
+    list-style-type: disc; 
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .topic-content blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  
+  .reply {
+    /* Styles for top-level replies */
+    border-left: 2px solid #ccc;
+    padding-left: 1rem;
+  }
+  
+  .sub-reply {
+    /* Styles for nested replies (sub-replies) */
+    margin-left: 2rem; /* Indent sub-replies */
+    border-left: 1px solid #eee; /* Add a subtle border to distinguish them */
+  }
