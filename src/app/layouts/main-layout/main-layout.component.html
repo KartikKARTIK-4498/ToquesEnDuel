@@ -8,8 +8,8 @@
         <a routerLink="/" class="flex items-center gap-2">
           <img src="assets/logo.svg" alt="InterCulture" class="w-14 h-14">
           <span class="text-xl tracking-wide font-alice font-bold text-brand-red">
-            INTER<br>
-            CULTURE
+            TOQUES<br>
+            EN DUEL
           </span>
         </a>
 
@@ -17,11 +17,11 @@
         <nav class="hidden lg:flex items-center gap-12">
           <a routerLink="/dashboard" routerLinkActive="bg-brand-red p-6 rounded-lg text-white" class="flex items-center gap-2 font-poppins text-[#2B2B2B] transition-colors">
             <i class="fas fa-home"></i>
-            <span class="hidden md:inline">Dashboard</span>
+            <span class="hidden md:inline">Tableau de bord</span>
           </a>
           <a routerLink="/challenge" routerLinkActive="bg-brand-red p-6 rounded-lg text-white" class="flex items-center gap-2 font-poppins text-[#2B2B2B] transition-colors">
             <i class="fas fa-flag"></i>
-            <span class="hidden md:inline">Challenges</span>
+            <span class="hidden md:inline">Défis</span>
           </a>
           <a routerLink="/discovery" routerLinkActive="bg-brand-red p-6 rounded-lg text-white" class="flex items-center gap-2 font-poppins text-[#2B2B2B] transition-colors">
             <i class="fas fa-trophy"></i>
@@ -29,7 +29,7 @@
           </a>
           <a routerLink="/community" routerLinkActive="bg-brand-red p-6 rounded-lg text-white" class="flex items-center gap-2 font-poppins text-[#2B2B2B] transition-colors">
             <i class="fas fa-users"></i>
-            <span class="hidden md:inline">Community</span>
+            <span class="hidden md:inline">Communauté</span>
           </a>
         </nav>
 
@@ -60,10 +60,10 @@
           <div class="relative">
             <div *ngIf="isDropdownOpen2" class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg py-2 z-50">
               <div class="px-4 py-2">
-                <h3 class="font-semibold text-lg">New Challenge Available!</h3>
+                <h3 class="font-semibold text-lg">Nouveau défi disponible !</h3>
                 <p class="text-sm text-gray-600">{{ activeChallenge?.title }}</p>
                 <p class="text-xs text-gray-500">{{ activeChallenge?.description | slice:0:100 }}{{ activeChallenge?.description.length > 100 ? '...' : '' }}</p>
-                <button class="mt-2 text-brand-red text-sm font-medium hover:underline" (click)="toggleDropdown2()">Close</button>
+                <button class="mt-2 text-brand-red text-sm font-medium hover:underline" (click)="toggleDropdown2()">Fermer</button>
               </div>
             </div>
             
@@ -86,7 +86,7 @@
                  class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
               <div class="px-4 py-2 border-b border-gray-100">
                 <p class="font-medium">{{ userName }}</p>
-                <p class="text-sm text-gray-600">View Profile</p>
+              
               </div>
               <button (click)="logout()" 
                       class="w-full px-4 py-2 text-left hover:bg-gray-100 transition-colors flex items-center gap-2">
@@ -114,33 +114,33 @@
           <a routerLink="/" class="flex items-center gap-2 mb-6">
             <img src="assets/logo.svg" alt="InterCulture" class="w-14 h-14">
             <span class="text-xl tracking-wide font-alice font-bold text-brand-red">
-              INTER<br>
-              CULTURE
+              TOQUES<br>
+              EN DUEL
             </span>
           </a>
-          <p class="font-poppins text-gray-600">Connecting cultures through the love of food</p>
+          <p class="font-poppins text-gray-600">Connecter les cultures à travers l'amour de la nourriture</p>
         </div>
 
         <!-- Quick Links -->
         <div class="col-span-1">
-          <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Quick Links</h3>
+          <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Liens rapides</h3>
           <ul class="space-y-4">
             <li>
               <a routerLink="/dashboard" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
                 <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
-                <span>Dashboard</span>
+                <span>Tableau de bord</span>
               </a>
             </li>
             <li>
               <a routerLink="/challenge" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
                 <i class="fas fa-flag text-sm" [ngClass]="{'text-white': isActive}"></i>
-                <span>Challenges</span>
+                <span>Défis</span>
               </a>
             </li>
             <li>
               <a routerLink="/discovery" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
                 <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
-                <span>Discover</span>
+                <span>Découvrir</span>
               </a>
             </li>
           </ul>
@@ -148,18 +148,18 @@
 
         <!-- Community -->
         <div class="col-span-1">
-          <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Community</h3>
+          <h3 class="font-alice text-xl text-[#2B2B2B] font-bold mb-6">Communauté</h3>
           <ul class="space-y-4">
             <li>
               <a routerLink="/community" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
                 <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
-                <span>Members</span>
+                <span>Membres</span>
               </a>
             </li>
             <li>
               <a routerLink="/events" routerLinkActive="bg-brand-red text-white" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
                 <i class="fas fa-chevron-right text-sm" [ngClass]="{'text-white': isActive}"></i>
-                <span>Events</span>
+                <span>Événements</span>
               </a>
             </li>
             <li>
@@ -184,7 +184,7 @@
             <li>
               <a href="#" class="flex items-center gap-2 font-poppins text-gray-600 hover:text-brand-red">
                 <i class="fas fa-question-circle text-sm"></i>
-                <span>Help Center</span>
+                <span>Centre d'aide</span>
               </a>
             </li>
           </ul>
@@ -195,7 +195,7 @@
       <div class="pt-8 border-t border-gray-200 flex justify-center items-center">
         <p class="font-poppins text-gray-600">
           <i class="far fa-copyright mr-2"></i>
-          2024 InterCulture. All rights reserved.
+          Toques en Duel 2024. Tous droits réservés.
         </p>
       </div>
     </div>
