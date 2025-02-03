@@ -3,7 +3,7 @@
   <div class="grid grid-cols-12 gap-6">
     <!-- Left Sidebar -->
     <div class="col-span-3 bg-base-200 rounded-lg p-4">
-      <h2 class="font-bold mb-4">Active Weekly Challenges Timeline</h2>
+      <h2 class="font-bold mb-4">Calendrier des défis hebdomadaires actifs</h2>
       <div class="flex items-center gap-2 mb-4">
         <img [src]="activeChallenge?.imageUrl" class="w-8 h-8 rounded-full object-cover" [alt]="activeChallenge?.title">
         <span class="text-sm">{{ activeChallenge?.title }}</span>
@@ -16,7 +16,7 @@
              [class.bg-primary]="day.isToday"
              [class.bg-base-100]="!day.isToday && day.isPast"
              [class.opacity-50]="!day.isToday && !day.isPast">
-          <span class="font-medium">Day {{ day.day }}</span>
+          <span class="font-medium">Jour {{ day.day }}</span>
           <span class="text-xs">{{ day.date }}</span>
         </div>
       </div>
@@ -30,9 +30,9 @@
           <img [src]="activeChallenge?.imageUrl" class="w-16 h-16 rounded-lg object-cover" [alt]="activeChallenge?.title">
           <div>
             <h1 class="text-2xl font-bold">{{ activeChallenge?.title }}</h1>
-            <p class="text-sm text-gray-600 mt-1">{{ remainingDays }} days remaining</p>
+            <p class="text-sm text-gray-600 mt-1">{{ remainingDays }} jours restants</p>
           </div>
-          <button class="btn btn-primary ml-auto" (click)="viewActiveChallenge()">View Active Challenge</button>
+          <button class="btn btn-primary ml-auto" (click)="viewActiveChallenge()">Voir le défi actif</button>
         </div>
       </div>
 
@@ -50,10 +50,10 @@
                     <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none">
                       <path d="M3.5 6L5.5 8L8.5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span>{{ submission.username }} Joined in {{ activeChallenge?.title }}</span>
+                    <span>{{ submission.username }} A rejoint {{ activeChallenge?.title }}</span>
                   </div>
                 </div>
-                <p class="text-gray-500 text-sm">Posted on {{ submission.timestamp | date:'d MMM, yyyy' }}</p>
+                <p class="text-gray-500 text-sm">Publié le {{ submission.timestamp | date:'d MMM, yyyy' }}</p>
               </div>
             </div>
           </div>
@@ -128,13 +128,13 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2-2 0 012-2h2.5" />
               </svg>
-              <span> {{ submission.votes || 0 }} Vote</span>
+              <span> {{ submission.votes || 0 }} Voter</span>
             </button>
             <div class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-full">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span>Challenge ends in {{ remainingDays }} days</span>
+              <span>Le défi se termine dans  {{ remainingDays }} jours</span>
             </div>
           </div>
         </div>

@@ -73,4 +73,7 @@ export class LoginComponent {
     // Implement guest login logic
     console.log('Continue as guest clicked');
   }
+  goBack() {
+    this.router.navigate(['/landing']);
+  }
 }

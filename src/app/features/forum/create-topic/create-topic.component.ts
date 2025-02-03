@@ -5,8 +5,7 @@ import { Router, ActivatedRoute, RouterLink, RouterModule } from '@angular/route
 
 import { FormControlName, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AngularEditorConfig, AngularEditorModule, UploadResponse } from '@kolkov/angular-editor';
-import { HttpClientModule, HttpEvent, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
 import { from, Observable } from 'rxjs'; 
 import { map } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
@@ -16,7 +15,7 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './create-topic.component.html',
   styleUrls: ['./create-topic.component.css'],
   standalone: true,
-  imports: [FormsModule,CommonModule,RouterLink,RouterModule,AngularEditorModule, ReactiveFormsModule, ]
+  imports: [FormsModule,CommonModule,RouterModule, ReactiveFormsModule, ]
 })
 export class CreateTopicComponent implements OnInit  {
   // @ViewChild('content') contentTextarea!: ElementRef;
@@ -27,62 +26,7 @@ export class CreateTopicComponent implements OnInit  {
   topicId: string | null = null;
   isEditing: boolean = false;
 
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-      spellcheck: true,
-      height: 'auto',
-      minHeight: '300px',
-      maxHeight: 'auto',
-      width: 'auto',
-      minWidth: '0',
-      translate: 'yes',
-      enableToolbar: true,
-      showToolbar: true,
-      placeholder: 'Enter text here...',
-      defaultParagraphSeparator: '',
-      defaultFontName: '',
-      defaultFontSize: 'Arial',
-      fonts: [
-        {class: 'arial', name: 'Arial'},
-      ],
-      customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    upload: (file: File): Observable<HttpEvent<UploadResponse>> => { 
-      return from(this.forumService.uploadImage(file, 'topic_images/'))
-        .pipe(
-          map(downloadURL => {
-            console.log('downloadURL', downloadURL);
-            
-            // Adjust the mockResponse structure based on Angular Editor's requirements
-            const mockResponse: UploadResponse = { 
-              link: downloadURL, 
-              // ... other properties if needed
-            } as any;
-            return {
-              type: 4, // HttpEventType.Response
-              body: mockResponse
-            } as HttpEvent<UploadResponse>;
-          })
-        );
-    },
-    uploadWithCredentials: false,
-    sanitize: true,
-    toolbarPosition: 'top',
 
-};
 
 
   constructor(
@@ -129,7 +73,7 @@ export class CreateTopicComponent implements OnInit  {
       this.forumService.updateTopic(this.topicId!, this.topic)
         .then(() => {
           alert('Topic updated successfully!');
-          this.router.navigate(['/forum/overview']);
+          this.router.navigate(['community']);
         })
         .catch(error => {
           console.error('Error updating topic:', error);
@@ -138,7 +82,7 @@ export class CreateTopicComponent implements OnInit  {
       this.forumService.createTopic(this.topic)
         .then(() => {
           alert('Topic created successfully!');
-          this.router.navigate(['/forum/overview']);
+          this.router.navigate(['community']);
         })
         .catch(error => {
           console.error('Error creating topic:', error);
@@ -156,7 +100,7 @@ export class CreateTopicComponent implements OnInit  {
   //     this.forumService.uploadImage(file, 'topic_images/') 
   //       .then(downloadURL => {
   //         // Insert the image into the editor at the current cursor position
-  //         const img = `<img src="${downloadURL}" alt="Uploaded Image">`;
+  //         const img = <img src="${downloadURL}" alt="Uploaded Image">;
   //         this.topic.content += img; 
   //       })
   //       .catch(error => {

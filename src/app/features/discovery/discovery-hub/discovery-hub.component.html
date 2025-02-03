@@ -15,7 +15,7 @@
               </div>
               <div class="flex items-center gap-2">
                 <i class="fas fa-clock text-gray-500"></i>
-                <span>Challenge ends in {{ getRemainingDays(challenge.endDate) }} days</span>
+                <span>Le défi se termine dans {{ getRemainingDays(challenge.endDate) }} jours</span>
               </div>
             </div>
           </div>
@@ -24,8 +24,8 @@
     } @else {
       <div class="text-center py-8 sm:py-12">
         <i class="fas fa-trophy text-4xl sm:text-6xl text-gray-300 mb-4"></i>
-        <h2 class="text-xl sm:text-2xl font-bold">No Active Challenge</h2>
-        <p class="text-gray-600">Check back soon for new challenges!</p>
+        <h2 class="text-xl sm:text-2xl font-bold">Aucun défi actif</h2>
+        <p class="text-gray-600">Revenez bientôt pour de nouveaux défis !</p>
       </div>
     }
 
@@ -33,8 +33,8 @@
     @if (submissions?.length) {
       <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="p-4 sm:p-6 bg-base-200">
-          <h2 class="text-xl sm:text-2xl font-bold">Leaderboard</h2>
-          <p class="text-gray-600 text-sm sm:text-base">Top submissions from the community</p>
+          <h2 class="text-xl sm:text-2xl font-bold">Classement</h2>
+          <p class="text-gray-600 text-sm sm:text-base">Les meilleures contributions de la communauté</p>
         </div>
         
         <div class="divide-y">
@@ -71,11 +71,11 @@
                     <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                       <h3 class="font-semibold">{{ submission.username }}</h3>
                       @if (submission.rank === 1) {
-                        <span class="text-xs px-2 py-1 bg-blue-100 text-blue-600 rounded-full">Diamond</span>
+                        <span class="text-xs px-2 py-1 bg-blue-100 text-blue-600 rounded-full">Diamant</span>
                       } @else if (submission.rank === 2) {
-                        <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full">Gold</span>
+                        <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full">Or</span>
                       } @else if (submission.rank === 3) {
-                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full">Silver</span>
+                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full">Argent</span>
                       }
                     </div>
                     <p class="text-sm text-gray-600">{{ submission.notes | slice:0:50 }}{{ submission.notes.length > 50 ? '...' : '' }}</p>
@@ -98,7 +98,7 @@
                   <div class="flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-2 bg-base-200 rounded-full text-sm">
                     <i class="fas fa-thumbs-up"></i>
                     <span class="font-semibold">{{ submission.votes || 0 }}</span>
-                    <span class="text-gray-600">votes</span>
+                    <span class="text-gray-600">Votes</span>
                   </div>
                 </div>
               </div>

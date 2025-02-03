@@ -7,7 +7,7 @@
            [class.bg-primary]="day.isToday"
            [class.bg-base-100]="!day.isToday && day.isPast"
            [class.opacity-50]="!day.isToday && !day.isPast">
-        <span class="font-medium block text-center">Day {{ day.day }}</span>
+        <span class="font-medium block text-center">Jour {{ day.day }}</span>
         <span class="text-xs block text-center">{{ day.date }}</span>
       </div>
     </div>
@@ -17,7 +17,7 @@
   <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
     <!-- Left Sidebar (Desktop Timeline) -->
     <div class="col-span-3 hidden md:block bg-base-200 rounded-lg p-4">
-      <h2 class="font-bold mb-4">Active Weekly Challenges Timeline</h2>
+      <h2 class="font-bold mb-4">Calendrier des défis hebdomadaires actifs</h2>
       <div class="flex items-center gap-2 mb-4">
         <img [src]="activeChallenge?.imageUrl" class="w-8 h-8 rounded-full object-cover" [alt]="activeChallenge?.title">
         <span class="text-sm">{{ activeChallenge?.title }}</span>
@@ -27,10 +27,10 @@
       <div class="space-y-2">
         <div *ngFor="let day of timelineDays" 
              class="flex items-center gap-2 p-2 rounded-lg"
-             [class.bg-primary]="day.isToday"
+             [class.bg-brand-red]="day.isToday"
              [class.bg-base-100]="!day.isToday && day.isPast"
              [class.opacity-50]="!day.isToday && !day.isPast">
-          <span class="font-medium">Day {{ day.day }}</span>
+          <span class=" font-medium">Jour {{ day.day }}</span>
           <span class="text-xs">{{ day.date }}</span>
         </div>
       </div>
@@ -44,9 +44,9 @@
           <img [src]="activeChallenge?.imageUrl" class="w-20 h-20 md:w-16 md:h-16 rounded-lg object-cover" [alt]="activeChallenge?.title">
           <div class="text-center md:text-left">
             <h1 class="text-xl md:text-2xl font-bold">{{ activeChallenge?.title }}</h1>
-            <p class="text-sm text-gray-600 mt-1">{{ remainingDays }} days remaining</p>
+            <p class="text-sm text-gray-600 mt-1">{{ remainingDays }} jours restants</p>
           </div>
-          <button class="btn btn-primary w-full md:w-auto text-base md:text-lg py-2 md:py-3 mt-4 md:mt-0 md:ml-auto" (click)="viewActiveChallenge()">View Active Challenge</button>
+          <button class="btn bg-brand-red btn-primary w-full md:w-auto text-base md:text-lg py-2 md:py-3 mt-4 md:mt-0 md:ml-auto" (click)="viewActiveChallenge()">Voir le défi actif</button>
         </div>
       </div>
 
@@ -71,10 +71,10 @@
                     <svg class="w-3 h-3" viewBox="0 0 12 12" fill="none">
                       <path d="M3.5 6L5.5 8L8.5 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span>{{ submission.username }} Joined in {{ activeChallenge?.title }}</span>
+                    <span>{{ submission.username }} A rejoint {{ activeChallenge?.title }}</span>
                   </div>
                 </div>
-                <p class="text-gray-500 text-sm">Posted on {{ submission.timestamp | date:'d MMM, yyyy' }}</p>
+                <p class="text-gray-500 text-sm">Publié le {{ submission.timestamp | date:'d MMM, yyyy' }}</p>
               </div>
             </div>
           </div>
@@ -142,11 +142,11 @@
             <button class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-3 md:py-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors text-lg md:text-base" 
                     (click)="voteSubmission(submission.id)">
               <i class="fas fa-thumbs-up text-xl md:text-lg"></i>
-              <span>{{ submission.votes || 0 }} Vote{{ submission.votes !== 1 ? 's' : '' }}</span>
+              <span>{{ submission.votes || 0 }} Voter{{ submission.votes !== 1 ? 's' : '' }}</span>
             </button>
             <div class="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-3 md:py-2 bg-red-500 text-white rounded-full text-lg md:text-base">
               <i class="far fa-clock text-xl md:text-lg"></i>
-              <span>Challenge ends in {{ remainingDays }} day{{ remainingDays !== 1 ? 's' : '' }}</span>
+              <span>Fin du défi dans{{ remainingDays }} jour{{ remainingDays !== 1 ? 's' : '' }}</span>
             </div>
           </div>
         </div>
@@ -157,7 +157,7 @@
     <div class="col-span-3 hidden md:block">
       <div class="bg-[#F8F3E3] rounded-2xl overflow-hidden sticky top-6">
         <div class="px-4 py-3 bg-[#E8DFC3] text-sm font-medium">
-          Sponsored by
+          Sponsorisé par
         </div>
         <div class="p-4">
           <img src="assets/People.png" 
@@ -174,7 +174,7 @@
       <div class="p-6">
         <div class="flex items-center gap-2 mb-4">
           <i class="fas fa-ad text-brand-red"></i>
-          <span class="text-sm font-medium">Sponsored</span>
+          <span class="text-sm font-medium">Sponsorisé</span>
         </div>
         <img src="assets/People.png" alt="Sponsored Content" class="w-full h-48 object-cover rounded-lg mb-4">
         <!-- <h3 class="font-semibold mb-2">Special Offer!</h3>

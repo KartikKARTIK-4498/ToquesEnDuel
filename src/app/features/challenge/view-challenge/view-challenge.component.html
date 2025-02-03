@@ -18,9 +18,9 @@
         <p class="text-lg mb-6">{{ challenge.description }}</p>
         <div class="stats stats-vertical lg:stats-horizontal shadow mb-6 w-full">
           <div class="stat">
-            <div class="stat-title">Time Left</div>
+            <div class="stat-title">Temps restant</div>
             <div class="stat-value text-primary">{{ getDaysLeft(challenge.endDate) }}</div>
-            <div class="stat-desc">Days</div>
+            <div class="stat-desc">Jours</div>
           </div>
           <div class="stat">
             <div class="stat-title">Participants</div>
@@ -28,9 +28,9 @@
             <div class="stat-desc">Chefs</div>
           </div>
           <div class="stat">
-            <div class="stat-title">Submissions</div>
+            <div class="stat-title">Soumissions</div>
             <div class="stat-value text-accent">{{ submissions.length }}</div>
-            <div class="stat-desc">Dishes</div>
+            <div class="stat-desc">Plats</div>
           </div>
         </div>
         <div class="flex flex-wrap gap-4">
@@ -45,7 +45,7 @@
           <button *ngIf="isParticipant && !hasSubmitted" 
                   class="btn btn-lg btn-secondary" 
                   (click)="toggleSubmissionForm()">
-            Submit Entry
+                  Soumettre une entrée
           </button>
         </div>
         <div class="mt-4" *ngIf="hasSubmitted">
@@ -53,7 +53,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>You've successfully submitted your entry!</span>
+            <span>Vous avez soumis votre candidature avec succès !</span>
           </div>
         </div>
       </div>
@@ -71,7 +71,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
-            Ingredients
+            Ingrédients
           </h2>
           <ul class="list-disc list-inside space-y-2">
             <li *ngFor="let ingredient of challenge.ingredients" class="text-lg">{{ ingredient }}</li>
@@ -86,7 +86,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
-            Steps
+            Etapes
           </h2>
           <ol class="list-decimal list-inside space-y-4">
             <li *ngFor="let step of challenge.steps" class="text-lg">{{ step }}</li>
@@ -100,7 +100,7 @@
       <!-- Details Card -->
       <div class="card bg-base-200 shadow-xl">
         <div class="card-body">
-          <h2 class="card-title text-2xl mb-4">Details</h2>
+          <h2 class="card-title text-2xl mb-4">Détails</h2>
           <div class="space-y-4">
             <div class="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +116,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
               <div>
-                <h3 class="font-bold">Difficulty</h3>
+                <h3 class="font-bold">Difficulté</h3>
                 <p class="text-lg">{{ challenge.difficulty }}</p>
               </div>
             </div>
@@ -131,7 +131,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
-            Tips
+            Conseils
           </h2>
           <ul class="list-disc list-inside space-y-2">
             <li *ngFor="let tip of challenge.tips" class="text-lg">{{ tip }}</li>
@@ -144,12 +144,12 @@
   <!-- Submission Form -->
   <div *ngIf="showSubmissionForm && !hasSubmitted" class="card bg-base-200 shadow-xl mb-8">
     <div class="card-body">
-      <h2 class="card-title text-2xl mb-4">Submit Your Entry</h2>
+      <h2 class="card-title text-2xl mb-4">Soumettez votre candidature</h2>
       <form [formGroup]="submissionForm" (ngSubmit)="submitChallenge()" class="space-y-6">
         <!-- File Upload -->
         <div class="form-control">
           <label class="label">
-            <span class="label-text text-lg">Upload Photos/Videos</span>
+            <span class="label-text text-lg">Télécharger des photos/vidéos</span>
           </label>
           <input type="file"
                  class="file-input file-input-bordered w-full"
@@ -196,7 +196,7 @@
 
         <div class="form-control">
           <label class="label">
-            <span class="label-text text-lg">Notes</span>
+            <span class="label-text text-lg">Remarques</span>
           </label>
           <textarea class="textarea textarea-bordered h-24"
                     formControlName="notes"
@@ -206,7 +206,7 @@
    
 
         <div class="flex justify-end gap-4">
-          <button type="button" class="btn btn-lg" (click)="toggleSubmissionForm()">Cancel</button>
+          <button type="button" class="btn btn-lg" (click)="toggleSubmissionForm()">Annuler</button>
           <button type="submit" 
                   class="btn btn-lg btn-primary" 
                   [disabled]="!submissionForm.valid || isUploading || selectedFiles.length === 0">
@@ -223,7 +223,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
-      Submissions
+      Soumissions
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div *ngFor="let submission of submissions" class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow duration-300">
@@ -235,7 +235,7 @@
           <!-- <video *ngIf="isVideo(mediaUrl)" [src]="mediaUrl" class="w-full h-56 object-cover" controls></video> -->
         </ng-container>
         <div *ngIf="submission.mediaUrls.length > 1" class="absolute bottom-2 right-2 bg-base-100 rounded-full px-2 py-1 text-sm">
-          {{ submission.mediaUrls.length }} items
+          {{ submission.mediaUrls.length }} articles
         </div>
       </div>
 

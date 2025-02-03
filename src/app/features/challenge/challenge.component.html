@@ -1,7 +1,7 @@
 <div *ngIf="isLoading" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
   <div class="bg-white rounded-lg p-8 flex flex-col items-center">
     <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary mb-4"></div>
-    <p class="text-gray-700 font-medium">Loading challenges...</p>
+    <p class="text-gray-700 font-medium">Chargement des défis...</p>
   </div>
 </div>
 
@@ -13,7 +13,7 @@
       </svg>
     </div>
     <div class="ml-3">
-      <p>Please <a routerLink="/auth/login" class="font-bold hover:underline">login</a> to participate in challenges and submit your entries.</p>
+      <p>S'il vous plaît, <a routerLink="/auth/login" class="font-bold hover:underline">connectez-vous</a> pour participer aux défis et soumettre vos entrées.</p>
     </div>
   </div>
 </div>
@@ -23,10 +23,10 @@
     <!-- Left Timeline -->
     <div class="w-64 bg-base-200 p-4 hidden md:block">
       <div class="bg-white rounded-lg shadow-md p-4">
-        <h2 class="font-semibold mb-4">Challenge Timeline</h2>
+        <h2 class="font-semibold mb-4">Chronologie du défi</h2>
         <div *ngIf="activeChallenges.length > 0" class="mb-3">
-          <p class="text-sm font-medium">Current Progress: Day {{ currentChallengeDay }}</p>
-          <p class="text-xs text-gray-600">Started on {{ activeChallenges[0].startDate.seconds * 1000 | date:'mediumDate' }}</p>
+          <p class="text-sm font-medium">Progrès en cours : Jour {{ currentChallengeDay }}</p>
+          <p class="text-xs text-gray-600">Commencé le {{ activeChallenges[0].startDate.seconds * 1000 | date:'mediumDate' }}</p>
         </div>
         <div class="space-y-2">
           <div *ngFor="let day of timelineDays" class="flex items-center gap-2">
@@ -48,9 +48,9 @@
       <div class="mb-8">
         <div class="flex ml-4 flex-col sm:flex-row items-center justify-between mb-6 space-y-4 sm:space-y-0">
           <div class="flex flex-wrap gap-4 sm:gap-6 justify-center sm:justify-start">
-            <button (click)="changeChallengeView('active')" [class.opacity-100]="activeTab === 'active'" [class.opacity-60]="activeTab !== 'active'" class="font-medium text-sm sm:text-base">Active</button>
-            <button (click)="changeChallengeView('your')" [class.opacity-100]="activeTab === 'your'" [class.opacity-60]="activeTab !== 'your'" class="font-medium text-sm sm:text-base">Your Challenges</button>
-            <button (click)="changeChallengeView('upcoming')" [class.opacity-100]="activeTab === 'upcoming'" [class.opacity-60]="activeTab !== 'upcoming'" class="font-medium text-sm sm:text-base">Upcoming</button>
+            <button (click)="changeChallengeView('active')" [class.opacity-100]="activeTab === 'active'" [class.opacity-60]="activeTab !== 'active'" class="font-medium text-sm sm:text-base">Actif</button>
+            <button (click)="changeChallengeView('your')" [class.opacity-100]="activeTab === 'your'" [class.opacity-60]="activeTab !== 'your'" class="font-medium text-sm sm:text-base">Vos défis</button>
+            <button (click)="changeChallengeView('upcoming')" [class.opacity-100]="activeTab === 'upcoming'" [class.opacity-60]="activeTab !== 'upcoming'" class="font-medium text-sm sm:text-base">Prochain</button>
           </div>
         </div>
 
@@ -59,15 +59,15 @@
           <div *ngIf="activeTab === 'active' && (!activeChallenges || activeChallenges.length === 0)" 
                class="bg-base-200 rounded-xl p-8 max-w-lg mx-auto text-center">
             <i class="fas fa-flag text-5xl text-gray-400 mb-4"></i>
-            <h3 class="text-xl font-semibold mb-2">No Active Challenges</h3>
-            <p class="text-gray-600 mb-6">You don't have any active challenges at the moment.</p>
+            <h3 class="text-xl font-semibold mb-2">Aucun défi actif</h3>
+            <p class="text-gray-600 mb-6">Vous n'avez aucun défi actif pour le moment.</p>
             <button class="btn btn-primary" 
                     (click)="changeChallengeView('upcoming')"
                     [disabled]="!isAuthenticated"
                     [class.btn-disabled]="!isAuthenticated"
                     [title]="!isAuthenticated ? 'Please login to explore challenges' : ''">
               <i class="fas fa-calendar-plus mr-2"></i>
-              Explore Upcoming Challenges
+              Découvrez les défis à venir
             </button>
           </div>
 
@@ -75,15 +75,15 @@
           <div *ngIf="activeTab === 'your' && (!yourChallenges || yourChallenges.length === 0)" 
                class="bg-base-200 rounded-xl p-8 max-w-lg mx-auto text-center">
             <i class="fas fa-trophy text-5xl text-gray-400 mb-4"></i>
-            <h3 class="text-xl font-semibold mb-2">No Completed Challenges</h3>
-            <p class="text-gray-600 mb-6">You haven't participated in any challenges yet.</p>
+            <h3 class="text-xl font-semibold mb-2">Aucun défi terminé</h3>
+            <p class="text-gray-600 mb-6">Vous n'avez pas encore participé à des défis.</p>
             <button class="btn btn-primary" 
                     (click)="changeChallengeView('active')"
                     [disabled]="!isAuthenticated"
                     [class.btn-disabled]="!isAuthenticated"
                     [title]="!isAuthenticated ? 'Please login to join challenges' : ''">
               <i class="fas fa-play-circle mr-2"></i>
-              Join a Challenge
+              Rejoindre un défi
             </button>
           </div>
 
@@ -91,9 +91,9 @@
           <div *ngIf="activeTab === 'upcoming' && (!upcomingChallenges || upcomingChallenges.length === 0)" 
                class="bg-base-200 rounded-xl p-8 max-w-lg mx-auto text-center">
             <i class="fas fa-calendar-alt text-5xl text-gray-400 mb-4"></i>
-            <h3 class="text-xl font-semibold mb-2">No Upcoming Challenges</h3>
-            <p class="text-gray-600">There are no upcoming challenges at the moment.</p>
-            <p class="text-sm text-gray-500 mt-2">Check back soon for new challenges!</p>
+            <h3 class="text-xl font-semibold mb-2">Aucun défi à venir</h3>
+            <p class="text-gray-600">Il n'y a aucun défi à venir pour le moment.</p>
+            <p class="text-sm text-gray-500 mt-2">Revenez bientôt pour de nouveaux défis !</p>
           </div>
           <!-- Challenge Cards -->
           <div class="space-y-4">
@@ -108,9 +108,9 @@
                   <div class="flex flex-col md:flex-row justify-between items-start">
                     <div>
                       <h3 class="text-lg font-medium">{{ challenge.title }}</h3>
-                      <p class="text-sm opacity-60">Challenge Date: {{ challenge.startDate.seconds * 1000 | date: 'dd MMM yyyy' }} • {{ challenge.endDate.seconds * 1000 | date: 'dd MMM yyyy' }}</p>
+                      <p class="text-sm opacity-60">Date du défi : {{ challenge.startDate.seconds * 1000 | date: 'dd MMM yyyy' }} • {{ challenge.endDate.seconds * 1000 | date: 'dd MMM yyyy' }}</p>
                     </div>
-                    <button class="btn btn-error btn-sm text-white mt-2 md:mt-0" (click)="viewChallenge(challenge)">
+                    <button [disabled]="activeTab === 'upcoming'" class="btn btn-error btn-sm text-white mt-2 md:mt-0" (click)="viewChallenge(challenge)">
                       {{ selectedChallenge?.id === challenge.id && expandedView ? 'Hide Details' : 'View Challenge' }}
                     </button>
                   </div>
@@ -129,7 +129,7 @@
                   <!-- Left Column -->
                   <div class="space-y-6">
                     <div>
-                      <h3 class="font-semibold mb-2">Steps to join</h3>
+                      <h3 class="font-semibold mb-2">Étapes pour rejoindre</h3>
                       <div class="bg-gray-50 p-4 rounded-lg whitespace-pre-line">{{ defaultSteps }}</div>
                     </div>
                     <div>
@@ -145,7 +145,7 @@
                       <div class="bg-gray-50 p-4 rounded-lg">{{ selectedChallenge.description }}</div>
                     </div>
                     <div>
-                      <h3 class="font-semibold mb-2">Tip</h3>
+                      <h3 class="font-semibold mb-2">Conseil</h3>
                       <div class="bg-gray-50 p-4 rounded-lg">{{ defaultTip }}</div>
                     </div>
                   </div>
@@ -153,30 +153,30 @@
 
                 <!-- Submission Box -->
                 <div class="mt-6 pt-6 border-t">
-                  <h3 class="font-semibold mb-4">Submission Box</h3>
+                  <h3 class="font-semibold mb-4">Boîte de soumission</h3>
                   <div *ngIf="!showSubmissionForm && !hasSubmitted" class="bg-gray-50 p-4 rounded-lg text-center">
                     <button class="btn btn-primary" 
                             (click)="toggleSubmissionForm()"
                             [disabled]="!isAuthenticated"
                             [class.btn-disabled]="!isAuthenticated"
                             [title]="!isAuthenticated ? 'Please login to submit your entry' : ''">
-                      Submit Your Entry
+                            Soumettez votre candidature
                     </button>
                   </div>
 
                   <div *ngIf="hasSubmitted" class="bg-gray-50 p-4 rounded-lg text-center">
-                    <p class="text-success">You have already submitted an entry for this challenge!</p>
+                    <p class="text-success">Vous avez déjà soumis une entrée pour ce défi !</p>
                   </div>
 
                   <!-- Submission Form -->
                   <div *ngIf="showSubmissionForm && !hasSubmitted" class="card bg-base-200 shadow-xl">
                     <div class="card-body">
-                      <h2 class="card-title text-xl md:text-2xl mb-4">Submit Your Entry</h2>
+                      <h2 class="card-title text-xl md:text-2xl mb-4">Soumettez votre candidature</h2>
                       <form [formGroup]="submissionForm" (ngSubmit)="submitChallenge()" class="space-y-6">
                         <!-- File Upload -->
                         <label class="form-control w-full">
                           <div class="label">
-                            <span class="label-text">Upload Videos (MP4 format, max 100MB)</span>
+                            <span class="label-text">Télécharger des vidéos (format MP4, max 100 Mo)</span>
                           </div>
                           <input type="file"
                                  class="file-input file-input-bordered w-full"
@@ -191,7 +191,7 @@
 
                         <!-- File Preview -->
                         <div *ngIf="selectedFiles.length > 0" class="mt-4">
-                          <h4 class="text-sm font-semibold mb-2">Selected Files:</h4>
+                          <h4 class="text-sm font-semibold mb-2">Fichiers sélectionnés:</h4>
                           <div class="grid grid-cols-1 gap-4">
                             <div *ngFor="let file of selectedFiles; let i = index" class="flex flex-col md:flex-row items-start md:items-center justify-between bg-base-200 p-2 rounded">
                               <div class="flex items-center space-x-2 mb-2 md:mb-0">
@@ -215,7 +215,7 @@
 
                         <div class="form-control">
                           <label class="label">
-                            <span class="label-text text-lg">Notes</span>
+                            <span class="label-text text-lg">Remarques</span>
                           </label>
                           <textarea class="textarea textarea-bordered h-24"
                                     formControlName="notes"
@@ -223,7 +223,7 @@
                         </div>
 
                         <div class="flex flex-col md:flex-row justify-end gap-4">
-                          <button type="button" class="btn btn-lg w-full md:w-auto" (click)="toggleSubmissionForm()">Cancel</button>
+                          <button type="button" class="btn btn-lg w-full md:w-auto" (click)="toggleSubmissionForm()">Annuler</button>
                           <button type="submit" 
                                   class="btn btn-lg btn-primary w-full md:w-auto" 
                                   [disabled]="!submissionForm.value.notes || isUploading || selectedFiles.length === 0">
@@ -236,7 +236,7 @@
 
                   <!-- Submissions List -->
                   <div *ngIf="submissions?.length > 0" class="mt-6">
-                    <h3 class="font-semibold mb-4">Recent Submissions</h3>
+                    <h3 class="font-semibold mb-4">Soumissions récentes</h3>
                     <div class="grid grid-cols-1 gap-4">
                       <div *ngFor="let submission of submissions" class="card bg-base-100 shadow-xl">
                         <div class="card-body">

@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit {
   }
 
   viewActiveChallenge() {
-       this.router.navigate(['/challenges']);
+       this.router.navigate(['/challenge']);
     // if (this.activeChallenge?.id) {
     //   this.router.navigate(['/challenges', this.activeChallenge.id]);
     // }
