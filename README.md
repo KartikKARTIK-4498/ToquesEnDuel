@@ -2,6 +2,9 @@
 
 Toques en Duel is an interactive platform where culinary enthusiasts can participate in **weekly cooking challenges** inspired by global cuisines. Users can recreate traditional dishes, submit their results, vote for the best creations, and engage with a vibrant food-loving community.
 
+- Lien de présentation : https://shorturl.at/HDV3T
+- Lien de documentation technique du projet : https://shorturl.at/LrFDx
+
 ---
 
 ## 🚀 Features
@@ -83,5 +86,3 @@ This project is licensed under the **MIT License**.
 For any inquiries or collaboration, feel free to contact the development team via email at `support@toquesenduel.com`.
 
 ---
-
-Happy Cooking! 🍲🔥
