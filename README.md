@@ -1,4 +1,4 @@
-# 🍽️ Toques en Duel
+#  [Logo]logo.png Toques en Duel
 
 Toques en Duel is an interactive platform where culinary enthusiasts can participate in **weekly cooking challenges** inspired by global cuisines. Users can recreate traditional dishes, submit their results, vote for the best creations, and engage with a vibrant food-loving community.
 
